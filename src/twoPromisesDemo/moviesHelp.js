@@ -1,43 +1,51 @@
-const { Pool } = require("pg");
-const { prompt } = require("enquirer");
-
 /**
- *Makes a pool of connections to the named database.  it is assumed the db is on localhost.
- * @param {string} dbName name of database to connect to
+ * THE PROMPT DOES NOT SHOW THE "MOVIENAME" OF THE MOVIES AFTER TYPING ACTOR NAME
+ * TO FIX THIS WHEN I HAVE THE TIME
  */
-function makeDBConnectionPool(dbName) {
-  //Understanding the details is not important here.
-  return new Pool({
-    database: dbName,
+
+const { makeDBConnectionPool } = require("./moviesConnection.js");
+const prompt = require('prompt'); // Ensure you have the 'prompt' library installed
+
+const pool = makeDBConnectionPool("SupaBase1");
+
+pool.query("select * from movies").then((resultFromPromise) => {
+  displayMovies(resultFromPromise.rows);
+  promptForSearchTerm().then(({ searchTerm }) => {
+    queryDBForMatchingMovies(pool, searchTerm).then((result) => {
+      showMovies(searchTerm, result.rows);
+    });
   });
+});
+
+function displayMovies(allMovies) {
+  for (let movie of allMovies) {
+    console.log(movie.moviename + " made in " + movie.year);
+  }
 }
 
-/**
- * @param {Pool} pool of db connections to use for query.
- * @param {string} searchTerm e.g. "batman" to use as substring for movie title search
- * @returns a promise which should resolve to an array of row objects representing the search results.
- */
 function queryDBForMatchingMovies(pool, searchTerm) {
-  //(Danger! SQL injection attacks are possible here via a sneaky searchTerm.)
   const searchTermWithWildCards = "%" + searchTerm + "%";
-  return pool.query("select * from movies where name ilike $1", [
-    searchTermWithWildCards,
-  ]);
+  return pool.query(
+    `SELECT * FROM movies 
+     WHERE actorone ILIKE $1 
+        OR actortwo ILIKE $1 
+        OR actorthree ILIKE $1`, 
+    [searchTermWithWildCards]
+  );
 }
-/**Prompt user for searchTerm for movie search.
- * @returns {Promise<{searchTerm: string}>}
- */
+
 function promptForSearchTerm() {
-  return prompt({
-    type: "input",
+  return prompt.get({
     name: "searchTerm",
-    message: "Search term for movies",
+    description: "Enter actor name",
+    type: "string",
+    required: true
   });
 }
 
 function showMovies(searchTerm, rows) {
   console.log(
-    "Here are the movies in omdb matching the search term: " + searchTerm,
+    "Here are the movies matching the search term: " + searchTerm,
     rows,
   );
 
@@ -47,8 +55,8 @@ function showMovies(searchTerm, rows) {
 }
 
 function simplifyMovie(fullMovieRow) {
-  const { id, name, date, budget, kind } = fullMovieRow;
-  const simplifiedMovieRow = { id, name, date, budget, kind };
+  const { id, moviename, year } = fullMovieRow;
+  const simplifiedMovieRow = { id, moviename, year };
   return simplifiedMovieRow;
 }
 
