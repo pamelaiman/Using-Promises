@@ -1,9 +1,10 @@
 const { makeDBConnectionPool } = require("./dbHelp");
 
-const pool = makeDBConnectionPool("async-demo");
+const pool = makeDBConnectionPool("SupaBase1");
 
-pool.query("select * from drake_songs").then((results) => {
-    displaySongs(results.rows);
+// here the promise is the sql query
+pool.query("select * from drake_songs").then((resultFromPromise) => {
+    displaySongs(resultFromPromise.rows);
 });
 
 function displaySongs(allSongs) {
