@@ -7,6 +7,6 @@ const promise = someAsyncFunction();
 promise.then(handleCompletedPromise);
 
 function handleCompletedPromise(result) {
-    //3. do stuff with the result
-    console.log("result was: ", result);
+  //3. do stuff with the result
+  console.log("result was: ", result);
 }

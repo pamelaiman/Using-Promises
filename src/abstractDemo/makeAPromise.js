@@ -5,10 +5,10 @@
  * @returns {Promise<number>} wait at least 4 seconds then return a number
  */
 function someAsyncFunction() {
-    const eventualResult = 42;
-    return new Promise((resolve, reject) =>
-        setTimeout(() => resolve(eventualResult), 4000)
-    );
+  const eventualResult = 42;
+  return new Promise((resolve, reject) =>
+    setTimeout(() => resolve(eventualResult), 4000),
+  );
 }
 
 module.exports = { someAsyncFunction };

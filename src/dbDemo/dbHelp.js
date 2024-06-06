@@ -5,10 +5,10 @@ const { Pool } = require("pg");
  * @param {string} dbName name of database to connect to
  */
 function makeDBConnectionPool(dbName) {
-    //Understanding the details is not important here.
-    return new Pool({
-        database: dbName,
-    });
+  //Understanding the details is not important here.
+  return new Pool({
+    database: dbName,
+  });
 }
 
 module.exports = { makeDBConnectionPool };

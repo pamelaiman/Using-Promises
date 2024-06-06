@@ -11,6 +11,6 @@ promiseOfDBResult.then(handleCompletedPromise);
 console.log("Result-handler has been registered!");
 
 function handleCompletedPromise(result) {
-    console.log("DB query has finished!  Results: ");
-    console.log("Here are the query rows: ", result.rows);
+  console.log("DB query has finished!  Results: ");
+  console.log("Here are the query rows: ", result.rows);
 }
