@@ -6,12 +6,12 @@
     "author": "nbogie <neillbogie@googlemail.com>",
     "license": "MIT",
     "scripts": {
-        "demo1": "node src/enquirerDemo/enquirerDemo1dWithThen.js",
-        "demo2": "node src/dbDemo/dbQueryDemo1WithThen.js",
-        "demo3": "node src/axiosDemo/axiosDemo1WithThen.js",
-        "demo4": "node src/twoPromisesDemo/twoPromisesDemo1WithAwait.js",
-        "demo5": "node src/twoPromisesDemo/twoPromisesDemo2WithAwait.js",
-        "demo6": "node src/loopDemo/loopDemo1WithAwait.js",
+        "enquirer": "node src/enquirerDemo/enquirerDemo1dWithThen.js",
+        "db": "node src/dbDemo/dbQueryDemo1WithThen.js",
+        "axios": "node src/axiosDemo/axiosDemo1WithThen.js",
+        "2promthen": "node src/twoPromisesDemo/twoPromisesDemo1WithAwait.js",
+        "2promawait": "node src/twoPromisesDemo/twoPromisesDemo2WithAwait.js",
+        "loop": "node src/loopDemo/loopDemo1WithAwait.js",
         "lint": "eslint src",
         "format": "prettier --write src"
     },
