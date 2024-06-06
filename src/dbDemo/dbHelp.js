@@ -8,9 +8,9 @@ dotenv.config();
  */
 function makeDBConnectionPool(dbName) {
   //Understanding the details is not important here.
-  
+
   return new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
   });
 }
 

@@ -2,7 +2,7 @@ const { makeDBConnectionPool } = require("./dbHelp");
 
 const pool = makeDBConnectionPool("async-demo");
 
-pool.query("select * from hiscores").then((results) => {
+pool.query("select * from highscores").then((results) => {
   displayScores(results.rows);
 });
 
